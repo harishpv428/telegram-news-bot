@@ -25,9 +25,13 @@ jobs:
         run: |
           pip install requests
       
-      - name: Run news checker
+      - name: Test secrets
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-        run: python news_check.py
+        run: |
+          echo "Testing secrets..."
+          if [ -z "$TELEGRAM_TOKEN" ]; then echo "TELEGRAM_TOKEN is empty!"; else echo "TELEGRAM_TOKEN exists"; fi
+          if [ -z "$CHAT_ID" ]; then echo "CHAT_ID is empty!"; else echo "CHAT_ID exists"; fi
+          if [ -z "$NEWSAPI_KEY" ]; then echo "NEWSAPI_KEY is empty!"; else echo "NEWSAPI_KEY exists"; fi
