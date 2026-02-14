@@ -13,8 +13,9 @@ def check_news():
         'Kaynes Technology',
         'Sweden Immigration Rules',
         'Sensex',
-        'Nasdaq'
+        'Nasdaq',
         'Quality Power Ltd'
+        'Cosmic CRF'
     ]
     
     print(f"🔍 Checking news at {datetime.now()}")
