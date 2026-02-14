@@ -12,8 +12,7 @@ def check_news():
         'KRN Heaters and Exchangers',
         'Kaynes Technology',
         'Sweden Immigration Rules',
-        'India Stock market',
-        'Gold',
+        'Sensex',
         'Nasdaq'
         'Quality Power Ltd'
     ]
@@ -32,7 +31,7 @@ def check_news():
             'apiKey': newsapi_key,
             'language': 'en',
             'sortBy': 'publishedAt',
-            'from': (datetime.now() - timedelta(hours=24)).strftime('%Y-%m-%d'),
+            'from': (datetime.now() - timedelta(hours=6)).strftime('%Y-%m-%d'),
             'pageSize': 3
         }
         
