@@ -11,8 +11,10 @@ def check_news():
     topics = [
         'KRN Heaters and Exchangers',
         'Kaynes Technology',
-        'India Defence',
-        'India Power',
+        'Sweden Immigration Rules',
+        'India Stock market',
+        'Gold',
+        'Nasdaq'
         'Quality Power Ltd'
     ]
     
