@@ -9,9 +9,11 @@ def check_news():
     
     # CUSTOMIZE YOUR TOPICS HERE
     topics = [
-        'artificial intelligence',
-        'climate change',
-        'SpaceX'
+        'KRN Heaters and Exchangers',
+        'Kaynes Technology',
+        'India Defence'
+        'India Power'
+        'Quality Power Ltd'
     ]
     
     print(f"🔍 Checking news at {datetime.now()}")
