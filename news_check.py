@@ -15,32 +15,52 @@ def check_news():
     ]
     
     print(f"🔍 Checking news at {datetime.now()}")
+    print(f"Chat ID: {chat_id}")
     
     for topic in topics:
-        print(f"\nChecking: {topic}")
+        print(f"\n{'='*50}")
+        print(f"Checking: {topic}")
         
-        # Fetch news from last 3 hours
+        # Fetch news from last 24 hours (changed from 3 hours to get more results)
         url = "https://newsapi.org/v2/everything"
         params = {
             'q': topic,
             'apiKey': newsapi_key,
             'language': 'en',
             'sortBy': 'publishedAt',
-            'from': (datetime.now() - timedelta(hours=3)).strftime('%Y-%m-%d'),
-            'pageSize': 2
+            'from': (datetime.now() - timedelta(hours=24)).strftime('%Y-%m-%d'),
+            'pageSize': 3
         }
         
         try:
             response = requests.get(url, params=params, timeout=10)
-            response.raise_for_status()
-            articles = response.json().get('articles', [])
+            print(f"NewsAPI Status Code: {response.status_code}")
+            
+            if response.status_code != 200:
+                print(f"❌ NewsAPI Error: {response.text}")
+                continue
+                
+            data = response.json()
+            
+            if data.get('status') != 'ok':
+                print(f"❌ API returned error: {data.get('message', 'Unknown error')}")
+                continue
+            
+            articles = data.get('articles', [])
+            print(f"Found {len(articles)} articles")
+            
+            if len(articles) == 0:
+                print("No articles found for this topic")
+                continue
             
             # Send to Telegram
-            for article in articles[:2]:  # Max 2 per topic
+            for i, article in enumerate(articles[:2], 1):  # Max 2 per topic
                 title = article.get('title', 'No title')
                 description = article.get('description', '')
                 article_url = article.get('url', '')
                 source = article.get('source', {}).get('name', 'Unknown')
+                
+                print(f"\n  Article {i}: {title[:50]}...")
                 
                 # Format message
                 message = f"📰 <b>{title}</b>\n\n"
@@ -63,15 +83,18 @@ def check_news():
                     'disable_web_page_preview': False
                 }, timeout=10)
                 
+                print(f"  Telegram Status Code: {telegram_response.status_code}")
+                
                 if telegram_response.status_code == 200:
-                    print(f"✅ Sent: {title[:50]}")
+                    print(f"  ✅ Sent successfully")
                 else:
-                    print(f"❌ Failed to send: {title[:50]}")
+                    print(f"  ❌ Failed: {telegram_response.text}")
                     
         except Exception as e:
-            print(f"❌ Error checking {topic}: {e}")
+            print(f"❌ Error: {type(e).__name__}: {e}")
     
-    print(f"\n✅ News check completed at {datetime.now()}")
+    print(f"\n{'='*50}")
+    print(f"✅ News check completed at {datetime.now()}")
 
 if __name__ == "__main__":
     check_news()
