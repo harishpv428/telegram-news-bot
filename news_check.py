@@ -11,8 +11,8 @@ def check_news():
     topics = [
         'KRN Heaters and Exchangers',
         'Kaynes Technology',
-        'India Defence'
-        'India Power'
+        'India Defence',
+        'India Power',
         'Quality Power Ltd'
     ]
     
