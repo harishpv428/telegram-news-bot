@@ -3,9 +3,9 @@ import os
 from datetime import datetime, timedelta
 
 def check_news():
-    telegram_token = os.environ['8163566013:AAGehpA1nK4aolluEExhe7fkOHsyRGs4q0s']
-    chat_id = os.environ['8584955447']
-    newsapi_key = os.environ['f090d56584434f3683ea5636b486416b']
+    telegram_token = os.environ['TELEGRAM_TOKEN']
+    chat_id = os.environ['CHAT_ID']
+    newsapi_key = os.environ['NEWSAPI_KEY']
     
     # CUSTOMIZE YOUR TOPICS HERE
     topics = [
